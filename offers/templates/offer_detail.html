@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block meta_title%} Jobs portal | {{object.name}} {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="linedot.css">
+<div class="container mt-5">
+    <h2>{{object.naziv_posla}} |
+        {{object.placa}} Eur<br>
+        <div class="row">
+            
+            <div class="col-auto mr-auto">
+                <a href="{% url 'offers:edit-offer' object.id %}" class="btn btn-primary" role="button">Edit</a>
+            </div>
+            <div class="col-auto mr-auto">
+                <form method="POST" action="{% url 'offers:delete-offer' object.id %}">
+                    {% csrf_token %}
+                    <input method="POST" type="submit" class="btn btn-danger" role="button" value="Delete">
+                </form>
+            </div>
+        </div>  
+    </h2>
+    {{object.datum_izrade}} <br>
+    <strong>Firma: </strong>{{object.firma}} <br><br>
+    <blockquote class="blockquote">
+        <p>{{object.opis_posla|linebreaksbr}}</p>
+    </blockquote>
+    <h3><strong>Lokacija: </strong></h3>
+    <p class="h4">{{object.lokacija}} </p><br>
+    <h3><strong>Kontakt Firme: </strong></h3><p class="h4">{{object.kontakt_osobe}} </p> <br>
+    <h3><strong>Plaća: </strong></h3><p class="h4">{{object.placa}} Eur</p><br>
+</div>
+
+
+{% endblock %}
